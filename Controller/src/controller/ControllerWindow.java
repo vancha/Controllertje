@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 /*
@@ -13,6 +15,7 @@ import java.io.IOException;
  */
 public class ControllerWindow extends javax.swing.JFrame {
 
+    
     /**
      * Creates new form ControllerWindow
      */
@@ -48,7 +51,7 @@ public class ControllerWindow extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
+    public static void main(String args[]) throws Exception {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -73,12 +76,19 @@ public class ControllerWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+         //Parse xml; show amount of containers;
+         
+         XMLParser X = new XMLParser("D:\\Users\\Freddy\\Desktop\\Schoolstuff\\Containing\\XML files\\xml7.xml");
+         int ac = X.Containers.size();
+         System.out.println(ac);
+         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new ControllerWindow().setVisible(true);
             }
         });
-        
+       
+         
         // Setting a default port number.
         int portNumber = 9991;
         
