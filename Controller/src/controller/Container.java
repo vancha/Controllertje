@@ -3,6 +3,9 @@
  * and open the template in the editor.
  */
 package controller;
+
+import java.util.Date;
+
 /**
  *
  * @author Freddy
@@ -42,4 +45,9 @@ public class Container {
         String soort;
         String gevaar;
         String iso;
+        
+        public String getDatum(){
+            String datum = ""+ adatumD + "-" + (adatumM) + "-200" + adatumJ;
+            return datum;
+        }  
 }
