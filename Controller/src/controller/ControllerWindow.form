@@ -59,6 +59,9 @@
                 <Property name="text" type="java.lang.String" value="Start simulatie"/>
                 <Property name="actionCommand" type="java.lang.String" value="StartSimulatie"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItem8ActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem9">
               <Properties>
@@ -147,6 +150,7 @@
           <Properties>
             <Property name="text" type="java.lang.String" value="Tijd"/>
             <Property name="enabled" type="boolean" value="false"/>
+            <Property name="horizontalAlignment" type="int" value="0"/>
           </Properties>
         </Menu>
       </SubComponents>

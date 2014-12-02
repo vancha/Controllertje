@@ -1,5 +1,6 @@
 package controller;
 
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -21,15 +22,17 @@ import java.util.Timer;
 public class ControllerWindow extends javax.swing.JFrame {
 
     private String meldingen = "";
+    private boolean xmlLoaded = false;
     private XMLParser X;
     private Date date = null;
+    private Controller controller;
 
     /**
      * Creates new form ControllerWindow
      */
     public ControllerWindow() {
         initComponents();
-
+        controller = new Controller(this);
 
     }
 
@@ -79,6 +82,11 @@ public class ControllerWindow extends javax.swing.JFrame {
 
         jMenuItem8.setText("Start simulatie");
         jMenuItem8.setActionCommand("StartSimulatie");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
         jMenu1.add(jMenuItem8);
 
         jMenuItem9.setText("Stop simulatie");
@@ -159,6 +167,7 @@ public class ControllerWindow extends javax.swing.JFrame {
 
         jMenu10.setText("Tijd");
         jMenu10.setEnabled(false);
+        jMenu10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jMenuBar1.add(jMenu10);
 
         setJMenuBar(jMenuBar1);
@@ -186,59 +195,63 @@ public class ControllerWindow extends javax.swing.JFrame {
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml1.xml");
         int ac = X.Containers.size();
-        meldingen += "Geladen containers: " + ac + "\n";
-
-        setTime();
-        textArea1.setText(meldingen);
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml2.xml");
         int ac = X.Containers.size();
-        meldingen += "Geladen containers: " + ac + "\n";
-        setTime();
-        textArea1.setText(meldingen);
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml3.xml");
         int ac = X.Containers.size();
-        meldingen += "Geladen containers: " + ac + "\n";
-        setTime();
-        textArea1.setText(meldingen);
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml4.xml");
         int ac = X.Containers.size();
-        meldingen += "Geladen containers: " + ac + "\n";
-        setTime();
-        textArea1.setText(meldingen);
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml5.xml");
         int ac = X.Containers.size();
-        meldingen += "Geladen containers: " + ac + "\n";
-        setTime();
-        textArea1.setText(meldingen);
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml6.xml");
         int ac = X.Containers.size();
-        meldingen += "Geladen containers: " + ac + "\n";
-        setTime();
-        textArea1.setText(meldingen);
+        setMessage(  "Geladen containers: " + ac );
+        xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml7.xml");
         int ac = X.Containers.size();
-        meldingen += "Geladen containers: " + ac + "\n";
-        setTime();
-        textArea1.setText(meldingen);
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        if (xmlLoaded == true) {
+            controller.start();
+            setMessage("Simulatie gestart.");
+        } else {
+            setMessage("laad eerst een xml in.");
+        }
+
+        textArea1.setText(meldingen);
+
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -275,8 +288,10 @@ public class ControllerWindow extends javax.swing.JFrame {
 
 
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new ControllerWindow().setVisible(true);
+                ControllerWindow ControllerWindow = new ControllerWindow();
+                ControllerWindow.setVisible(true);
             }
         });
 
@@ -290,18 +305,24 @@ public class ControllerWindow extends javax.swing.JFrame {
             socketServer.start();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println(e);
         }
 
     }
 
+    // geeft de datum weer in menubar
+    public void setTime(Calendar date) {
+        jMenu10.setText("" + date.getTime());
+    }
+
     //set de tijd op eerste dag dat iets aankomt
-    public void setTime() {
+    public Date getTime() {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
+
         try {
-            Date date = sdf.parse("01-01-2020");
+            date = sdf.parse("01-01-2020");
 
             for (Container cont : X.Containers) {
                 Date dateTest = sdf.parse(cont.getDatum());
@@ -309,12 +330,16 @@ public class ControllerWindow extends javax.swing.JFrame {
                     date = dateTest;
                 }
             }
-            jMenu10.setText("" + date);
+            return date;
         } catch (ParseException ex) {
-            ex.printStackTrace();
+            System.out.println(ex);
         }
-
-
+        return null;
+    }
+    
+        public void setMessage(String s){
+        meldingen += s + "\n";
+        textArea1.setText(meldingen);
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenu jMenu1;
