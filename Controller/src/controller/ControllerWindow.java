@@ -9,6 +9,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Timer;
 
 /*
@@ -296,17 +297,7 @@ public class ControllerWindow extends javax.swing.JFrame {
         });
 
 
-        // Setting a default port number.
-        int portNumber = 9991;
 
-        try {
-            // initializing the Socket Server
-            SocketServer socketServer = new SocketServer(portNumber);
-            socketServer.start();
-
-        } catch (IOException e) {
-            System.out.println(e);
-        }
 
     }
 
@@ -336,6 +327,11 @@ public class ControllerWindow extends javax.swing.JFrame {
         }
         return null;
     }
+    
+    public List<Container> getContainerList(){
+        return X.Containers;
+    }
+    
     
         public void setMessage(String s){
         meldingen += s + "\n";

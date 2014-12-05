@@ -4,13 +4,14 @@
  */
 package controller;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author Freddy
  */
-public class Container {
+public class Container implements Serializable{
     	String containerID;
     //aankomst
         int adatumD;
