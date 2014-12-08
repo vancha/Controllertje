@@ -9,8 +9,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -39,7 +37,7 @@ public class SocketServer {
             client = serverSocket.accept();
             System.out.println("The following client has connected:" + client.getInetAddress().getCanonicalHostName());
             //A client has connected to this server. Send welcome message
-            
+
             Thread thread = new Thread(clientHandler = new SocketClientHandler(client));
             clientHandlers.add(new SocketClientHandler(client));
             thread.start();
@@ -47,8 +45,8 @@ public class SocketServer {
 
         }
     }
-    
-    public void sendMessage(String message){
+
+    public void sendMessage(String message) {
         try {
             clientHandler.sendMessage(message + "\n");
         } catch (IOException ex) {
@@ -57,14 +55,4 @@ public class SocketServer {
             System.out.println("kan geen string  versturen /" + ex);
         }
     }
-    
-    public void sendObject(Container container){
-        try {
-            clientHandler.sendObject(container);
-        } catch (IOException ex) {
-            System.out.println("kan geen object versturen /" + ex);
-        }
-    }
-
-
 }

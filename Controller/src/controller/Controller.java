@@ -25,7 +25,7 @@ public class Controller {
     private Calendar cal;
     private ControllerWindow controllerWindow;
     private SocketServer socketServer;
-    private int i = 0;
+    private Boolean firstTime = true;
     private List<Container> containers;
 
     public Controller(ControllerWindow controllerWindow) {
@@ -33,7 +33,6 @@ public class Controller {
 
         // Setting a default port number.
         int portNumber = 9991;
-
 
         // initializing the Socket Server
         socketServer = new SocketServer(portNumber);
@@ -54,7 +53,7 @@ public class Controller {
     }
 
     public void start() {
-        
+
         containers = controllerWindow.getContainerList();
         if (!isPlaying) {
             cal = Calendar.getInstance();
@@ -76,14 +75,12 @@ public class Controller {
     // voert onderstaande methode iedere seconde uit (om aan te passen kijk bij start())
     public void timerExecuter() {
 
-        if (i < 1) {
+        if (firstTime) {
 
-                socketServer.sendMessage("test");
-//                socketServer.sendMessage("CONTAINER::");
-//                socketServer.sendObject(containers.get(i));
-            
-
-            i++;
+            for (int i = 0; i < 10; i++) {
+                socketServer.sendMessage(containers.get(i).toString());
+            }
+            firstTime = false;
         }
 
 
