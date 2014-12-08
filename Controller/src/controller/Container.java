@@ -3,43 +3,60 @@
  * and open the template in the editor.
  */
 package controller;
+
+import java.io.Serializable;
+import java.util.Date;
+
 /**
  *
  * @author Freddy
  */
-public class Container {
-    	String containerID;
+public class Container implements Serializable {
+
+    String containerID;
     //aankomst
-        int adatumD;
-        int adatumM;
-        int adatumJ;
-        double aVan;
-        double aTot;
-        String asoortvervoer;
-        String avervoerbedrijf;
-        float x;
-        float y;
-        float z;
-        String eigenaar;
-        int containerNr;
+    int adatumD;
+    int adatumM;
+    int adatumJ;
+    double aVan;
+    double aTot;
+    String asoortvervoer;
+    String avervoerbedrijf;
+    float x;
+    float y;
+    float z;
+    String eigenaar;
+    int containerNr;
     //vertrek
-        int vdatumD;
-        int vdatumM;
-        int vdatumJ;
-        double vVan;
-        double vTot;
-        String vsoortvervoer;
-        String vvervoerbedrijf;
+    int vdatumD;
+    int vdatumM;
+    int vdatumJ;
+    double vVan;
+    double vTot;
+    String vsoortvervoer;
+    String vvervoerbedrijf;
     //afmetingen
-        double l;
-        double b;
-        double h;
+    double l;
+    double b;
+    double h;
     //gewicht
-        int leeg;
-        int gevuld;
+    int leeg;
+    int gevuld;
     //inhoud
-        String naam;
-        String soort;
-        String gevaar;
-        String iso;
+    String naam;
+    String soort;
+    String gevaar;
+    String iso;
+
+    public String getDatum() {
+        String datum = "" + adatumD + "-" + (adatumM) + "-200" + adatumJ;
+        return datum;
+    }
+
+    @Override
+    public String toString() {
+       
+        //return "" + vervoerAankomst + ";" + VervoerVertrek + ";" + bedrijfAankomst + ";" + bedrijfVertrek + ";" + positie.toString() + ";" + eigenaar + ";" + containerNummer + ";" + afmeting.toString() + ";" + gewichtLeeg + ";" + gewichtInhoud + ";" + typeInhoud + ";" + soortInhoud + ";" + gevaarInhoud + ";" + productNummer + ";" + "Models/container/container.j3o" + ";" + "Common/MatDefs/Light/Lighting.j3md";
+        return "CONTAINER::dit is een container: ;" + containerID;
+    }
 }

@@ -1,26 +1,40 @@
 package controller;
 
+import java.awt.Window;
+import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
+import java.util.Timer;
 
 /*
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author E alse
  */
 public class ControllerWindow extends javax.swing.JFrame {
 
-    
+    private String meldingen = "";
+    private boolean xmlLoaded = false;
+    private XMLParser X;
+    private Date date = null;
+    private Controller controller;
+
     /**
      * Creates new form ControllerWindow
      */
     public ControllerWindow() {
         initComponents();
+        controller = new Controller(this);
+
     }
 
     /**
@@ -32,21 +46,213 @@ public class ControllerWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jMenu3 = new javax.swing.JMenu();
+        jMenu5 = new javax.swing.JMenu();
+        jMenu6 = new javax.swing.JMenu();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        textArea1 = new java.awt.TextArea();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        jMenuItem8 = new javax.swing.JMenuItem();
+        jMenuItem9 = new javax.swing.JMenuItem();
+        jMenu2 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
+        jMenuItem4 = new javax.swing.JMenuItem();
+        jMenuItem5 = new javax.swing.JMenuItem();
+        jMenuItem6 = new javax.swing.JMenuItem();
+        jMenuItem7 = new javax.swing.JMenuItem();
+        jMenu4 = new javax.swing.JMenu();
+        jMenu10 = new javax.swing.JMenu();
+
+        jMenu3.setText("jMenu3");
+
+        jMenu5.setText("jMenu5");
+
+        jMenu6.setText("jMenu6");
+
+        jMenu7.setText("jMenu7");
+
+        jMenu8.setText("jMenu8");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jMenu1.setText("File");
+
+        jMenuItem8.setText("Start simulatie");
+        jMenuItem8.setActionCommand("StartSimulatie");
+        jMenuItem8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem8ActionPerformed(evt);
+            }
+        });
+        jMenu1.add(jMenuItem8);
+
+        jMenuItem9.setText("Stop simulatie");
+        jMenuItem9.setActionCommand("StopSimulatie");
+        jMenu1.add(jMenuItem9);
+
+        jMenuBar1.add(jMenu1);
+
+        jMenu2.setText("XML");
+
+        jMenuItem1.setText("XML 1");
+        jMenuItem1.setActionCommand("XML1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem1);
+
+        jMenuItem2.setText("XML 2");
+        jMenuItem2.setActionCommand("XML2");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem2);
+
+        jMenuItem3.setText("XML 3");
+        jMenuItem3.setActionCommand("XML3");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem3);
+
+        jMenuItem4.setText("XML 4");
+        jMenuItem4.setActionCommand("XML4");
+        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem4ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem4);
+
+        jMenuItem5.setText("XML 5");
+        jMenuItem5.setActionCommand("XML5");
+        jMenuItem5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem5ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem5);
+
+        jMenuItem6.setText("XML 6");
+        jMenuItem6.setActionCommand("XML6");
+        jMenuItem6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem6ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem6);
+
+        jMenuItem7.setText("XML 7");
+        jMenuItem7.setActionCommand("XML7");
+        jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem7ActionPerformed(evt);
+            }
+        });
+        jMenu2.add(jMenuItem7);
+
+        jMenuBar1.add(jMenu2);
+
+        jMenu4.setText("Speed");
+        jMenuBar1.add(jMenu4);
+
+        jMenu10.setText("Tijd");
+        jMenu10.setEnabled(false);
+        jMenu10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jMenuBar1.add(jMenu10);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(textArea1, javax.swing.GroupLayout.DEFAULT_SIZE, 259, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml1.xml");
+        int ac = X.Containers.size();
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml2.xml");
+        int ac = X.Containers.size();
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+        X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml3.xml");
+        int ac = X.Containers.size();
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
+
+    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
+        X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml4.xml");
+        int ac = X.Containers.size();
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
+    }//GEN-LAST:event_jMenuItem4ActionPerformed
+
+    private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
+        X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml5.xml");
+        int ac = X.Containers.size();
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
+    }//GEN-LAST:event_jMenuItem5ActionPerformed
+
+    private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
+        X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml6.xml");
+        int ac = X.Containers.size();
+        setMessage(  "Geladen containers: " + ac );
+        xmlLoaded = true;
+    }//GEN-LAST:event_jMenuItem6ActionPerformed
+
+    private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
+        X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml7.xml");
+        int ac = X.Containers.size();
+        setMessage( "Geladen containers: " + ac );
+        xmlLoaded = true;
+    }//GEN-LAST:event_jMenuItem7ActionPerformed
+
+    private void jMenuItem8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem8ActionPerformed
+        if (xmlLoaded == true) {
+            controller.start();
+            setMessage("Simulatie gestart.");
+        } else {
+            setMessage("laad eerst een xml in.");
+        }
+
+        textArea1.setText(meldingen);
+
+    }//GEN-LAST:event_jMenuItem8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -57,6 +263,8 @@ public class ControllerWindow extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
          */
+
+
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -76,37 +284,79 @@ public class ControllerWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-         //Parse xml; show amount of containers;
-         
-         XMLParser X = new XMLParser("D:\\Users\\Freddy\\Desktop\\Schoolstuff\\Containing\\XML files\\xml7.xml");
-         int ac = X.Containers.size();
-         System.out.println(ac);
-         
+        //Parse xml; show amount of containers;
+
+
+
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
-                new ControllerWindow().setVisible(true);
+                ControllerWindow ControllerWindow = new ControllerWindow();
+                ControllerWindow.setVisible(true);
             }
         });
-       
-         
-        // Setting a default port number.
-        int portNumber = 9991;
-        
-        try {
-            // initializing the Socket Server
-            SocketServer socketServer = new SocketServer(portNumber);
-            socketServer.start();
-            
-            } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
+
+
+
+
     }
-   
+
+    // geeft de datum weer in menubar
+    public void setTime(Calendar date) {
+        jMenu10.setText("" + date.getTime());
+    }
+
+    //set de tijd op eerste dag dat iets aankomt
+    public Date getTime() {
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+
+
+        try {
+            date = sdf.parse("01-01-2020");
+
+            for (Container cont : X.Containers) {
+                Date dateTest = sdf.parse(cont.getDatum());
+                if (dateTest.compareTo(date) < 0) {
+                    date = dateTest;
+                }
+            }
+            return date;
+        } catch (ParseException ex) {
+            System.out.println(ex);
+        }
+        return null;
+    }
+    
+    public List<Container> getContainerList(){
+        return X.Containers;
+    }
     
     
-    
-    
+        public void setMessage(String s){
+        meldingen += s + "\n";
+        textArea1.setText(meldingen);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu10;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
+    private javax.swing.JMenuItem jMenuItem4;
+    private javax.swing.JMenuItem jMenuItem5;
+    private javax.swing.JMenuItem jMenuItem6;
+    private javax.swing.JMenuItem jMenuItem7;
+    private javax.swing.JMenuItem jMenuItem8;
+    private javax.swing.JMenuItem jMenuItem9;
+    private java.awt.TextArea textArea1;
     // End of variables declaration//GEN-END:variables
 }
