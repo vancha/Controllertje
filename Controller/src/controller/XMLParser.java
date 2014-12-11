@@ -20,7 +20,11 @@ import java.util.List;
 public class XMLParser {
 
 //making a list with the object Containers
-List<Container> Containers = new ArrayList<Container>();
+List<Container> ZeeContainers = new ArrayList<Container>();
+List<Container> BinnenContainers = new ArrayList<Container>();
+List<Container> TreinContainers = new ArrayList<Container>();
+List<Container> VrachtContainers = new ArrayList<Container>();
+int error;
 
 
 public XMLParser(String File)
@@ -92,7 +96,28 @@ try {
             aContainer.x = Float.parseFloat(aElement.getElementsByTagName("x").item(0).getTextContent());
             aContainer.y = Float.parseFloat(aElement.getElementsByTagName("y").item(0).getTextContent());
             aContainer.z = Float.parseFloat(aElement.getElementsByTagName("z").item(0).getTextContent());
-            Containers.add(aContainer);
+
+            if ("trein".equals(aContainer.asoortvervoer))
+            {
+                TreinContainers.add(aContainer);
+            }
+            else if ("zeeschip".equals(aContainer.asoortvervoer))
+            {
+                ZeeContainers.add(aContainer);
+            }
+            else if ("vrachtauto".equals(aContainer.asoortvervoer))
+            {
+                VrachtContainers.add(aContainer);
+            }
+            else if ("binnenschip".equals(aContainer.asoortvervoer))
+            {
+                BinnenContainers.add(aContainer);
+            }
+            else
+            {
+                System.out.println(aContainer.asoortvervoer);
+                error++;
+            }
             }
         }
     }
