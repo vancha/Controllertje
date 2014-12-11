@@ -195,50 +195,50 @@ public class ControllerWindow extends javax.swing.JFrame {
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml1.xml");
-        int ac = X.Containers.size();
-        setMessage( "Geladen containers: " + ac );
+        int ac = X.BinnenContainers.size() + X.TreinContainers.size()+ X.VrachtContainers.size() + X.ZeeContainers.size();
+        setMessage("Geladen containers: " + ac);
         xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml2.xml");
-        int ac = X.Containers.size();
-        setMessage( "Geladen containers: " + ac );
+        int ac = X.BinnenContainers.size() + X.TreinContainers.size()+ X.VrachtContainers.size() + X.ZeeContainers.size();
+        setMessage("Geladen containers: " + ac);
         xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml3.xml");
-        int ac = X.Containers.size();
-        setMessage( "Geladen containers: " + ac );
+        int ac = X.BinnenContainers.size() + X.TreinContainers.size()+ X.VrachtContainers.size() + X.ZeeContainers.size();
+        setMessage("Geladen containers: " + ac);
         xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml4.xml");
-        int ac = X.Containers.size();
-        setMessage( "Geladen containers: " + ac );
+        int ac = X.BinnenContainers.size() + X.TreinContainers.size()+ X.VrachtContainers.size() + X.ZeeContainers.size();
+        setMessage("Geladen containers: " + ac);
         xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem4ActionPerformed
 
     private void jMenuItem5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem5ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml5.xml");
-        int ac = X.Containers.size();
-        setMessage( "Geladen containers: " + ac );
+        int ac = X.BinnenContainers.size() + X.TreinContainers.size()+ X.VrachtContainers.size() + X.ZeeContainers.size();
+        setMessage("Geladen containers: " + ac);
         xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem5ActionPerformed
 
     private void jMenuItem6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem6ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml6.xml");
-        int ac = X.Containers.size();
-        setMessage(  "Geladen containers: " + ac );
+        int ac = X.BinnenContainers.size() + X.TreinContainers.size()+ X.VrachtContainers.size() + X.ZeeContainers.size();
+        setMessage("Geladen containers: " + ac);
         xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem6ActionPerformed
 
     private void jMenuItem7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem7ActionPerformed
         X = new XMLParser(System.getProperty("user.dir") + "\\src\\controller\\xml7.xml");
-        int ac = X.Containers.size();
-        setMessage( "Geladen containers: " + ac );
+        int ac = X.BinnenContainers.size() + X.TreinContainers.size()+ X.VrachtContainers.size() + X.ZeeContainers.size();
+        setMessage("Geladen containers: " + ac);
         xmlLoaded = true;
     }//GEN-LAST:event_jMenuItem7ActionPerformed
 
@@ -315,25 +315,58 @@ public class ControllerWindow extends javax.swing.JFrame {
         try {
             date = sdf.parse("01-01-2020");
 
-            for (Container cont : X.Containers) {
+            for (Container cont : X.TreinContainers) {
                 Date dateTest = sdf.parse(cont.getDatum());
                 if (dateTest.compareTo(date) < 0) {
                     date = dateTest;
                 }
             }
+
+            for (Container cont : X.VrachtContainers) {
+                Date dateTest = sdf.parse(cont.getDatum());
+                if (dateTest.compareTo(date) < 0) {
+                    date = dateTest;
+                }
+            }
+            for (Container cont : X.ZeeContainers) {
+                Date dateTest = sdf.parse(cont.getDatum());
+                if (dateTest.compareTo(date) < 0) {
+                    date = dateTest;
+                }
+            }
+            for (Container cont : X.BinnenContainers) {
+                Date dateTest = sdf.parse(cont.getDatum());
+                if (dateTest.compareTo(date) < 0) {
+                    date = dateTest;
+                }
+            }
+
+
             return date;
+
         } catch (ParseException ex) {
             System.out.println(ex);
         }
         return null;
     }
-    
-    public List<Container> getContainerList(){
-        return X.Containers;
+
+    public List<Container> getTreinContainerList() {
+        return X.TreinContainers;
     }
-    
-    
-        public void setMessage(String s){
+
+    public List<Container> getBinnenContainerList() {
+        return X.BinnenContainers;
+    }
+
+    public List<Container> getZeeContainerList() {
+        return X.ZeeContainers;
+    }
+
+    public List<Container> getVrachtContainerList() {
+        return X.VrachtContainers;
+    }
+
+    public void setMessage(String s) {
         meldingen += s + "\n";
         textArea1.setText(meldingen);
     }
